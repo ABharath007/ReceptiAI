@@ -1,6 +1,8 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # Virtual Environment
 venv/
@@ -19,7 +21,25 @@ Thumbs.db
 
 # Python cache
 .pytest_cache/
+.mypy_cache/
 
 # Build
 dist/
 build/
+
+# Logs
+*.log
+
+# Coverage
+.coverage
+htmlcov/
+
+# Database files (if ever used)
+*.db
+*.sqlite3
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Alembic migrations cache (if needed later)
+alembic/versions/__pycache__/
