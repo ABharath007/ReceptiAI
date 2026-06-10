@@ -19,3 +19,9 @@ class CustomerResponse(BaseModel):
 
     class Config:
         from_attributes = True
+        
+class CustomerUpdate(BaseModel):
+    business_id: int
+    name: str
+    phone: str
+    email: EmailStr | None = None
