@@ -22,3 +22,11 @@ class ResourceResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class ResourceUpdate(BaseModel):
+    business_id: int
+    name: str
+    resource_type: str
+    bio: str | None = None
+    experience_years: int | None = None
+    is_active: bool
