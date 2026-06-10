@@ -22,3 +22,10 @@ class ServiceResponse(BaseModel):
 
     class Config:
         from_attributes = True
+class ServiceUpdate(BaseModel):
+    business_id: int
+    name: str
+    description: str | None = None
+    duration_minutes: int
+    price: int
+    is_active: bool
