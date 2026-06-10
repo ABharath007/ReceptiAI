@@ -20,3 +20,10 @@ class BusinessResponse(BaseModel):
     
     class Config:
         from_attributes = True
+        
+class BusinessUpdate(BaseModel):
+    name:str
+    industry:str
+    phone : str
+    email: EmailStr
+    address: str | None = None
