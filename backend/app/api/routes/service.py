@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.database.database import get_db
 from app.models.service import Service
+from app.models.business import Business
 from app.schemas.service import (
     ServiceCreate,
     ServiceUpdate,
@@ -18,6 +19,9 @@ def create_service(
     service: ServiceCreate,
     db: Session = Depends(get_db)
 ):
+    business = db.query(Business).filter(Business.id == service.business_id).first()
+    if not business:
+        raise HTTPException(status_code=404,detail="Business not found")
     new_service = Service(
         business_id=service.business_id,
         name=service.name,
