@@ -6,6 +6,7 @@ from app.api.routes.customer import router as customer_router
 from app.api.routes.resource_availability import router as resource_availability_router
 from app.api.routes.resource_leave import router as resource_leave_router
 from app.api.routes.appointment import router as appointment_router
+from app.api.routes.scheduling import router as scheduling_router
 
 app = FastAPI(
     title="ReceptiAI",
@@ -19,6 +20,7 @@ app.include_router(business_router)
 app.include_router(resource_availability_router)
 app.include_router(resource_leave_router)
 app.include_router(appointment_router)
+app.include_router(scheduling_router)
 @app.get("/")
 def home():
     return {"message": "Welcome to ReceptiAI!"}
