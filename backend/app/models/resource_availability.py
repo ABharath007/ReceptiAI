@@ -21,7 +21,7 @@ class ResourceAvailability(Base):
     )
 
     day_of_week = Column(
-        String(20),
+        Integer,
         nullable=False
     )
 
