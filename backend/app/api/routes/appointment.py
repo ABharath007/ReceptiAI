@@ -13,6 +13,7 @@ from app.schemas.appointment import (
     AppointmentUpdate,
     AppointmentResponse
 )
+from app.services.booking_service import create_booking
 
 router = APIRouter(
     prefix="/appointments",
@@ -25,54 +26,18 @@ router = APIRouter(
 )
 def create_appointment(
     appointment: AppointmentCreate,
-    db: Session = Depends(get_db)
-):
+    db: Session = Depends(get_db)):
 
-    business = db.query(Business).filter(
-        Business.id == appointment.business_id
-    ).first()
-
-    if not business:
-        raise HTTPException(
-            status_code=404,
-            detail="Business not found"
-        )
-
-    customer = db.query(Customer).filter(
-        Customer.id == appointment.customer_id
-    ).first()
-
-    if not customer:
-        raise HTTPException(
-            status_code=404,
-            detail="Customer not found"
-        )
-
-    resource = db.query(Resource).filter(
-        Resource.id == appointment.resource_id
-    ).first()
-
-    if not resource:
-        raise HTTPException(
-            status_code=404,
-            detail="Resource not found"
-        )
-
-    new_appointment = Appointment(
-        business_id=appointment.business_id,
-        customer_id=appointment.customer_id,
-        resource_id=appointment.resource_id,
-        appointment_date=appointment.appointment_date,
-        start_time=appointment.start_time,
-        end_time=appointment.end_time,
-        special_notes=appointment.special_notes
-    )
-
-    db.add(new_appointment)
-    db.commit()
-    db.refresh(new_appointment)
-
-    return new_appointment
+    return create_booking(
+    db=db,
+    business_id=appointment.business_id,
+    customer_id=appointment.customer_id,
+    resource_id=appointment.resource_id,
+    appointment_date=appointment.appointment_date,
+    start_time=appointment.start_time,
+    end_time=appointment.end_time,
+    special_notes=appointment.special_notes
+)
 
 @router.get(
     "/",
