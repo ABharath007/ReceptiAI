@@ -8,6 +8,7 @@ from app.models.resource import Resource
 from app.models.appointment import Appointment
 
 from app.services.scheduling_service import get_available_slots
+from app.services.status_history_service import create_status_history
 
 def create_booking( db: Session, business_id: int, customer_id : int, resource_id :int, appointment_date : date, start_time : time, end_time : time, special_notes :str | None=None):
     business = (db.query(Business).filter(Business.id == business_id).first())
@@ -34,6 +35,8 @@ def create_booking( db: Session, business_id: int, customer_id : int, resource_i
         status = "BOOKED"
     )
     db.add(appointment)
+    db.flush() 
+    create_status_history(db=db, appointment_id=appointment.id, old_status=None, new_status="BOOKED")
     db.commit()
     db.refresh(appointment)
     return appointment

@@ -14,6 +14,7 @@ from app.schemas.appointment import (
     AppointmentResponse
 )
 from app.services.booking_service import create_booking
+from app.services.appointment_service import update_appointment_status
 
 router = APIRouter(
     prefix="/appointments",
@@ -96,6 +97,8 @@ def update_appointment(
             status_code=404,
             detail="Appointment not found"
         )
+    if appointment.status != appointment_data.status:
+        appointment = update_appointment_status(db=db, appointment_id=appointment_id, new_status=appointment_data.status)
 
     appointment.business_id = appointment_data.business_id
     appointment.customer_id = appointment_data.customer_id
