@@ -10,6 +10,7 @@ def get_all_knowledge(
     db: Session,
     business_id: int
 ):
+    print("Business ID received:", business_id)
     validate_business(db, business_id)
 
     return (

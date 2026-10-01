@@ -1,5 +1,6 @@
-from typing import TypedDict, Optional, List
+from typing import TypedDict, Optional, List, Annotated
 from langchain_core.messages import BaseMessage
+from langgraph.graph.message import add_messages
 
 
 class ReceptionState(TypedDict):
@@ -8,7 +9,7 @@ class ReceptionState(TypedDict):
     """
 
     # Incoming user message
-    message: List[BaseMessage]
+    messages: Annotated[List[BaseMessage], add_messages]
 
     # Business context
     business_id: int

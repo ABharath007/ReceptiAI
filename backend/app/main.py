@@ -13,6 +13,7 @@ from app.api.routes.resource_service import router as resource_service_router
 from app.api.routes.conversation_session import router as conversation_session_router
 from app.api.routes.conversation_message import router as conversation_message_router
 from app.api.routes.conversation_summary import router as conversation_summary_router
+from app.api.routes.chat import router as chat_router
 
 app = FastAPI(
     title="ReceptiAI",
@@ -33,6 +34,7 @@ app.include_router(resource_service_router)
 app.include_router(conversation_session_router)
 app.include_router(conversation_message_router)
 app.include_router(conversation_summary_router)
+app.include_router(chat_router)
 @app.get("/")
 def home():
     return {"message": "Welcome to ReceptiAI!"}
